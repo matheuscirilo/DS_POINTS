@@ -4,8 +4,8 @@ WITH tb_transactions_products AS (
         t2.QuantityProduct
     FROM transactions AS t1
         LEFT JOIN transactions_product AS t2 ON t1.idTransaction = t2.idTransaction
-    WHERE dtTransaction < '2024-05-06'
-        AND dtTransaction >= DATE('2024-05-06', '-21 day')
+    WHERE dtTransaction < '{date}'
+        AND dtTransaction >= DATE('{date}', '-21 day')
 ),
 tb_share AS (
     SELECT idCustomer,
@@ -168,7 +168,7 @@ tb_produto_max AS (
     FROM tb_rn
     WHERE rnQtde = 1
 )
-SELECT '2024-06-05' AS dtRef,
+SELECT '{date}' AS dtRef,
     t1.*,
     t2.NameProduct AS productMaxQtde
 FROM tb_share AS t1

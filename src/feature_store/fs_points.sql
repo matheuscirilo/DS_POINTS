@@ -70,7 +70,8 @@ tb_vida AS(
     GROUP BY t1.idCustomer
 ),
 tb_join AS (
-    SELECT t1.*,
+    SELECT 
+    t1.*,
         t2.saldoPoints,
         t2.pointsAcumuladosVida,
         t2.pointsResgatadosVida,
@@ -78,5 +79,5 @@ tb_join AS (
     FROM tb_pontos_d AS t1
         LEFT JOIN tb_vida AS t2 ON t1.idCustomer = t2.idCustomer
 )
-SELECT *
+SELECT *, '{date}' AS dtRef
 FROM tb_join
