@@ -1,10 +1,16 @@
-SELECT t1.NameCustomer,
-    t1.PointsCustomer,
-    t1.flEmail,
-    t2.idTransaction,
-    t2.pointsTransaction,
-    t3.NameProduct,
-    t3.QuantityProduct
-FROM customers AS t1
-    LEFT JOIN transactions AS t2 ON T1.idCustomer = T2.idCustomer
-    LEFT JOIN transactions_product AS t3 ON T2.idTransaction = T3.idTransaction
+WITH tb_fl_churn AS (
+    SELECT t1.dtRef,
+        t1.idCustomer,
+        CASE
+            WHEN t2.idCustomer IS NULL THEN 1
+            ELSE 0
+        END AS flChurn
+    FROM fs_general AS t1
+        LEFT JOIN fs_general AS t2 ON t1.idCustomer = t2.idCustomer
+        AND t1.dtRef = date(t2.dtRef, '-21 day')
+    WHERE t1.dtRef < DATE('2024-06-06', '-21 day')
+        AND strftime('%d', t1.dtRef) = '01'
+    order by 1,
+        2
+)
+SELECT * from tb_fl_churn

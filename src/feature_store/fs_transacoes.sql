@@ -22,11 +22,11 @@ tb_freq AS (
 ),
 tb_live_minutes AS (
     SELECT idCustomer,
-        DATE(dtTransaction, '-3 hOUR') AS dtTransactionDate,
-        MAX(DATETIME(dtTransaction, '-3 hOUR')) AS dtFim,
-        MIN(DATETIME(dtTransaction, '-3 hOUR')) AS dtInicio,
+        DATE(dtTransaction, '-3 hour') AS dtTransactionDate,
+        MAX(DATETIME(dtTransaction, '-3 hour')) AS dtFim,
+        MIN(DATETIME(dtTransaction, '-3 hour')) AS dtInicio,
         (
-            JULIANDAY(MAX(DATETIME(dtTransaction, '-3 hOUR'))) - JULIANDAY(MIN(DATETIME(dtTransaction, '-3 hOUR')))
+            JULIANDAY(MAX(DATETIME(dtTransaction, '-3 hour'))) - JULIANDAY(MIN(DATETIME(dtTransaction, '-3 hour')))
         ) * 24 * 60 AS liveMinutes
     FROM tb_transactions
     GROUP BY 1,
